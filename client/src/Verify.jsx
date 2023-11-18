@@ -6,7 +6,7 @@ import axios from "axios"
 const markAttendance = (id) =>{
     let responseMain;
 
-    axios.put("http://localhost:5002/api/markAttnd", {"id":id})
+    axios.put("/api/markAttnd", {"id":id})
     .then((response) => {
       responseMain = response;
       console.log(response)
@@ -62,7 +62,7 @@ export const Verify = () => {
             setData(result);
             console.log('x', result)
 
-            axios.put("http://localhost:5002/api/markAttnd", {"id":String(result)})
+            axios.put("/api/markAttnd", {"id":String(result)})
             .then((response) => {
             console.log(response)
             console.log(response.status)
