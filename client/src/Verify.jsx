@@ -3,47 +3,6 @@ import { useState } from 'react';
 import {QrScanner} from '@yudiel/react-qr-scanner';
 import axios from "axios"
 
-const markAttendance = (id) =>{
-    let responseMain;
-
-    axios.put("/api/markAttnd", {"id":id})
-    .then((response) => {
-      responseMain = response;
-      console.log(response)
-      
-    }).catch((err)=>{
-        //!handle this error
-        console.log(err)
-    })
-
-    return(responseMain)
-
-
-
-    // fetch("/api/markattnd", {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ id }),
-    //   })
-    //     .then((response) => {
-    //         console.log(response)
-    //       if (!response.ok) {
-    //         throw new Error("Network response was not ok");
-    //       }
-    //       return response.json();
-    //     })
-    //     .then((data) => {
-    //       return data;
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error:", error);
-    //       throw error; // Rethrow the error so it can be caught by the caller
-    //     });
-
-}
-
 export const Verify = () => {
     let [scan, setScan] = useState(true);
     let [data, setData] = useState('');
@@ -51,10 +10,9 @@ export const Verify = () => {
     let [id, setId] = useState('');
     let [flag, setFlag] = useState('');
     let [mssg, setMssg] = useState('');
-    let [err, setErr] = useState('');
     return (
         <div>
-        <div style={{'width':'40%' , 'align':'center', 'display':'flex', 'flex-direction':'row'}}>
+        <div style={{'width':'40%' , 'align':'center', 'display':'flex', 'flex-direction':'row', 'height':'40%', 'flexWrap':'nowrap'}}>
             {scan && 
             // <Scanner setScan = {setScan}/> 
             <QrScanner
@@ -75,16 +33,18 @@ export const Verify = () => {
                 
             }
             else {
-                setErr(response.data.message)
+                setName(response.data.userData.name)
+                setId(response.data.userData.regno)
+                setFlag(response.data.userData.flag)
+                setMssg(response.data.message || response.data.mssg)
             }
-            
-
-
-
             
             }).catch((err)=>{
                 //!handle this error
                 console.log(err)
+                setName('')
+                setId('')
+                setFlag('')
                 if(err.response.data.mssg) {
                     setMssg(err.response.data.mssg)
                 }
@@ -121,18 +81,7 @@ export const Verify = () => {
 
     }
 
-    <div>
-    <h3>{data}</h3>
-    <h5>{err}</h5>
-    <h5>Name : {name}</h5>
-    <h5>Id : {id}</h5>
-    <h5>Attendance : {flag}</h5>
-    <h5>Message : {mssg}</h5>
-    </div>
-            
-        </div>
-        <div style={{'width':'50%', 'display':'flex', 'flex-direction':'row'}}>
-            {
+{
                 !scan && <button style={
                    
                     {
@@ -145,12 +94,23 @@ export const Verify = () => {
                     'font-weight': '600',
                    ' border-radius': '8px',
                     'padding': '14px 24px',
-                    'margin': '30% 100%',
+                    // 'margin': '30% 100%',
                     'border': 'none', 
                     'background': 'linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%)',
                     'color': '#fff'}
                 } onClick={() => setScan(true)}>Start Scan</button>
             }
+            
+        </div>
+        <div style={{'width':'50%', 'display':'flex', 'flex-direction':'row', 'height':'60%'}}>
+        <div>
+        <h4>{data}</h4>
+        <p><b>Name : </b> {name}</p>
+        <p><b>Id : </b> {id}</p>
+        <p><b>Attendance : </b> {flag}</p>
+        <p><b>Message : </b> {mssg}</p>
+        </div>
+            
         
         </div>
 
