@@ -1,3 +1,17 @@
+body{
+    background-color: #f0fef3;
+}
+
+.heading-verify-main{
+    background-color: maroon;
+    padding: 10px 30px;
+    color: white;
+    margin: 10px 0;
+    border-radius: 20px;
+    width: 80%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .div-verify-parent {
   display: flex;
   height: 100vh;
@@ -10,7 +24,7 @@
   padding: 0;
 }
 
-.scan-off > div {
+.scan-off > div:nth-child(2) {
   visibility: hidden;
 }
 
@@ -22,9 +36,9 @@
   /* border: 5px maroon solid;
   background-color: rgb(255, 253, 181); */
   border-radius: 20px;
-  padding: 20px;
-  margin-top: 10px;
-  text-align: left;
+  padding: 10px 5px;
+  margin-top: 5px;
+  text-align: center;
   justify-content: center;
   /* height: 60%; */
 }

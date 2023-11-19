@@ -3,6 +3,7 @@ import { useState } from "react";
 import { QrScanner } from "@yudiel/react-qr-scanner";
 import axios from "axios";
 import "./Verify.css";
+import Alert from "@mui/material/Alert";
 
 export const Verify = () => {
   let [scan, setScan] = useState(true);
@@ -11,16 +12,15 @@ export const Verify = () => {
   let [id, setId] = useState("");
   let [flag, setFlag] = useState("");
   let [mssg, setMssg] = useState("");
+  let [mssgType, setMssgType] = useState("info");
   return (
     <div className="div-verify-parent">
-      {/* <div className={"main-div ".concat(scan ? "" : "scan-off")}> */}
-      <div className="main-div">
+      <div className="heading-verify-main">Hello World</div>
+      <div className={"main-div ".concat(scan ? "" : "scan-off")}>
+        {/* <div className="main-div"> */}
         <div className="main-div-overlay">
           {!scan && (
-            <button
-            className="scan-button-main"
-              onClick={() => setScan(true)}
-            >
+            <button className="scan-button-main" onClick={() => setScan(true)}>
               Start Scan
             </button>
           )}
@@ -45,11 +45,13 @@ export const Verify = () => {
                   setId(response.data.userData.regno);
                   setFlag(response.data.userData.flag);
                   setMssg(response.data.mssg);
+                  setMssgType("success")
                 } else {
                   setName(response.data.userData.name);
                   setId(response.data.userData.regno);
                   setFlag(response.data.userData.flag);
                   setMssg(response.data.message || response.data.mssg);
+                  setMssgType("error")
                 }
               })
               .catch((err) => {
@@ -60,6 +62,7 @@ export const Verify = () => {
                 setFlag("");
                 if (err.response.data.mssg) {
                   setMssg(err.response.data.mssg);
+                  setMssgType("error")
                 }
               });
           }}
@@ -68,39 +71,29 @@ export const Verify = () => {
         />
       </div>
 
-      
-
-
-
       <div className="data-div">
+        {scan && (
+          <h3>
+            <center>SCAN QR</center>
+          </h3>
+        )}
+        {!scan && (
+          <div>
+            <h4>{data}</h4>
 
-        {scan && <h3><center>SCAN QR</center></h3>}
-        {!scan &&
-         <div>
-         <h4>{data}</h4>
-         <p>
-           {name}
-         </p>
-         {/* <p>
+            <Alert variant="filled" severity={mssgType}>
+              {mssg}
+            </Alert>
+            <p>{mssg}</p>
+            <p>{name}</p>
+            {/* <p>
            <b>Reg No.: </b> {id}
          </p> */}
-         {/* <p>
+            {/* <p>
            <b>Attendance : </b> {flag}
          </p> */}
-         <p>
-           {mssg}
-         </p>
-       </div>
-        
-        
-        
-        
-        
-        
-        }
-
-
-       
+          </div>
+        )}
       </div>
     </div>
   );
