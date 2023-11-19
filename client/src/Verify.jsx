@@ -59,6 +59,7 @@ export const Verify = () => {
             // <Scanner setScan = {setScan}/> 
             <QrScanner
             onDecode={async(result) => {
+            setScan(false);
             setData(result);
             console.log('x', result)
 
@@ -76,7 +77,7 @@ export const Verify = () => {
             else {
                 setErr(response.data.message)
             }
-            setScan(false);
+            
 
 
 
