@@ -13,9 +13,10 @@ export const Verify = () => {
   let [flag, setFlag] = useState("");
   let [mssg, setMssg] = useState("");
   let [mssgType, setMssgType] = useState("info");
+  const [cnt, setCnt] = useState(0);
   return (
     <div className="div-verify-parent">
-      <div className="heading-verify-main">Hello World</div>
+      <div className="heading-verify-main">ABC Vishwa</div>
       <div className={"main-div ".concat(scan ? "" : "scan-off")}>
         {/* <div className="main-div"> */}
         <div className="main-div-overlay">
@@ -45,13 +46,14 @@ export const Verify = () => {
                   setId(response.data.userData.regno);
                   setFlag(response.data.userData.flag);
                   setMssg(response.data.mssg);
-                  setMssgType("success")
+                  response.data.count && setCnt(response.data.count);
+                  setMssgType("success");
                 } else {
                   setName(response.data.userData.name);
                   setId(response.data.userData.regno);
                   setFlag(response.data.userData.flag);
                   setMssg(response.data.message || response.data.mssg);
-                  setMssgType("error")
+                  setMssgType("error");
                 }
               })
               .catch((err) => {
@@ -62,7 +64,7 @@ export const Verify = () => {
                 setFlag("");
                 if (err.response.data.mssg) {
                   setMssg(err.response.data.mssg);
-                  setMssgType("error")
+                  setMssgType("error");
                 }
               });
           }}
@@ -84,7 +86,6 @@ export const Verify = () => {
             <Alert variant="filled" severity={mssgType}>
               {mssg}
             </Alert>
-            <p>{mssg}</p>
             <p>{name}</p>
             {/* <p>
            <b>Reg No.: </b> {id}
@@ -94,6 +95,7 @@ export const Verify = () => {
          </p> */}
           </div>
         )}
+        <i style={{fontSize:"14px"}}>Total Admitted: {cnt}</i>
       </div>
     </div>
   );

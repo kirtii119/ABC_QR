@@ -1,6 +1,6 @@
-body{
+/* body{
     background-color: #f0fef3;
-}
+} */
 
 .heading-verify-main{
     background-color: maroon;
@@ -40,6 +40,7 @@ body{
   margin-top: 5px;
   text-align: center;
   justify-content: center;
+  flex-direction: column;
   /* height: 60%; */
 }
 
@@ -51,6 +52,7 @@ body{
   flex-wrap: nowrap;
   border: 2px black solid;
   position: relative;
+  background-color: rgb(207, 207, 207);
 }
 
 .main-div-overlay {
