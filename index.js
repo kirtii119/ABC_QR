@@ -78,7 +78,7 @@ let details = await getDetails (id);
         return res.status(404).send({mssg : "User Not Found"})
     }
     else if (details.flag == 1){
-        return res.status(200).send({ mssg: "Attendance already Marked ", userData: details });
+        return res.status(200).send({ mssg: "Already Admitted ", userData: details });
     }
 
 queryResult2 = await new Promise((resolve, reject) => {
@@ -99,7 +99,7 @@ queryResult2 = await new Promise((resolve, reject) => {
     if (queryResult2 == -1) {
         return res.status(500).send({ mssg: "Internal Server Error" });
     } else {
-        return res.status(200).send({ mssg: "Attendance marked", userData: details });
+        return res.status(200).send({ mssg: "Admitted", userData: details });
     }
 
 });
