@@ -18,18 +18,7 @@ const getDetails = async (id) =>{
 
     queryResult = await new Promise((resolve, reject) => {
         con.query(
-          `CREATE TABLE ABC.users (
-            name VARCHAR(255) NOT NULL,
-            flag BOOLEAN,
-            regno VARCHAR(20) UNIQUE
-        );
-        INSERT INTO ABC.users (name, flag, regno) VALUES ('John Doe', 0, 'ABC123');
-        INSERT INTO ABC.users (name, flag, regno) VALUES ('Jane Smith', 0, 'XYZ789');
-        INSERT INTO ABC.users (name, flag, regno) VALUES ('Alice Johnson', 0, 'DEF456');
-        INSERT INTO ABC.users (name, flag, regno) VALUES ('', 1, 'GHI789');
-        INSERT INTO ABC.users (name, flag, regno) VALUES ('Bob Williams', 0, 'RHBVCVB');
-          
-          SELECT * FROM ABC.users WHERE regno = '${id}'`,
+          `SELECT * FROM users WHERE regno = '${id}'`,
           function (err, result, fields) {
             if (err) {
               reject(err);
@@ -94,7 +83,7 @@ let details = await getDetails (id);
 
 queryResult2 = await new Promise((resolve, reject) => {
     con.query(
-      `UPDATE ABC.users SET flag = 1 WHERE regno = '${id}'`,
+      `UPDATE users SET flag = 1 WHERE regno = '${id}'`,
       function (err, result, fields) {
         if (err) {
           reject(err);
