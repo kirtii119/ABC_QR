@@ -31,6 +31,7 @@ export const Verify = () => {
           onDecode={async (result) => {
             if (!scan) return; // turn off decoding
             setScan(false);
+            setTimeout(() => setScan(true), 8000); // turn on decoding after 2 seconds
             setData(result);
             console.log("x", result);
 
@@ -66,22 +67,40 @@ export const Verify = () => {
           constraints={{ facingMode: "environment" }}
         />
       </div>
+
+      
+
+
+
       <div className="data-div">
-        <div>
-          <h4>{data}</h4>
-          <p>
-            <b>Name : </b> {name}
-          </p>
-          <p>
-            <b>Id : </b> {id}
-          </p>
-          <p>
-            <b>Attendance : </b> {flag}
-          </p>
-          <p>
-            <b>Message : </b> {mssg}
-          </p>
-        </div>
+
+        {scan && <h3><center>SCAN QR</center></h3>}
+        {!scan &&
+         <div>
+         <h4>{data}</h4>
+         <p>
+           {name}
+         </p>
+         {/* <p>
+           <b>Reg No.: </b> {id}
+         </p> */}
+         {/* <p>
+           <b>Attendance : </b> {flag}
+         </p> */}
+         <p>
+           {mssg}
+         </p>
+       </div>
+        
+        
+        
+        
+        
+        
+        }
+
+
+       
       </div>
     </div>
   );
